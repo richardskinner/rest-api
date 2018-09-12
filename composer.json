@@ -1,0 +1,14 @@
+{
+    "name": "richardskinner/rest-api",
+    "description": "REST API using Raw PHP and OOP Principles",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Richard Skinner",
+            "email": "rskinner@werdigital.co.uk"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {}
+}

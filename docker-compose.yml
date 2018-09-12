@@ -1,0 +1,26 @@
+version: '3'
+services:
+  nginx:
+    image: nginx:latest
+    ports:
+      - "8080:80"
+    links:
+      - php
+    volumes:
+     - ./docker/nginx/site.conf:/etc/nginx/conf.d/site.conf
+     - ./:/code/
+    networks:
+     - backend
+    environment:
+      - VIRTUAL_HOST=dev.rest-api.com
+  php:
+    build: docker/php7
+    volumes:
+      - ./docker/php7/php.conf:/usr/local/etc/php/php.ini
+      - ./:/code/
+    networks:
+     - backend
+networks:
+  backend:
+    external:
+      name: simplestreamdev
