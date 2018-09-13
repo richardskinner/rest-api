@@ -1,14 +1,19 @@
 {
-    "name": "richardskinner/rest-api",
-    "description": "REST API using Raw PHP and OOP Principles",
-    "type": "project",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Richard Skinner",
-            "email": "rskinner@werdigital.co.uk"
-        }
-    ],
-    "minimum-stability": "stable",
-    "require": {}
+  "name": "richardskinner/rest-api",
+  "description": "REST API using Raw PHP and OOP Principles",
+  "type": "project",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Richard Skinner",
+      "email": "rskinner@werdigital.co.uk"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Framework\\": "framework/"
+    }
+  },
+  "minimum-stability": "stable",
+  "require": {}
 }
