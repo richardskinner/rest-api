@@ -12,7 +12,7 @@ services:
     networks:
      - backend
     environment:
-      - VIRTUAL_HOST=dev.rest-api.com
+      - VIRTUAL_HOST=death.star.api
   php:
     build: docker/php7
     volumes:

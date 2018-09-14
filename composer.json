@@ -11,9 +11,13 @@
   ],
   "autoload": {
     "psr-4": {
-      "Framework\\": "framework/"
+      "Framework\\": "framework/",
+      "Application\\": "application/"
     }
   },
   "minimum-stability": "stable",
-  "require": {}
+  "require": {
+    "php-di/php-di": "^6.0",
+    "vlucas/phpdotenv": "^2.5"
+  }
 }
