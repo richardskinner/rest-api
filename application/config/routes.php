@@ -7,7 +7,7 @@ return [
             'method' => 'index',
             'request_method' => 'POST',
         ],
-        '/reactor/exhaust/1' => [
+        '/reactor/exhaust/%s' => [
             'controller' => 'Reactor',
             'method' => 'exhaust',
             'request_method' => 'DELETE',

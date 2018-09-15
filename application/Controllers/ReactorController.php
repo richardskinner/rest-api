@@ -1,18 +1,22 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: richardskinner
- * Date: 14/09/2018
- * Time: 17:12
- */
 
 namespace Application\Controllers;
 
-
-class ReactorController
+class ReactorController extends BaseController
 {
     public function exhaust($id)
     {
-        return true;
+        if ($this->oauth->checkToken($this->headers->getBearerToken())) {
+            $this->resource->create([
+                'code' => 0,
+                'message' => "Deletion Successful"
+            ])->resolve();
+        }
+
+        $this->resource->create([
+            'code' => 1175,
+            'message' => 'Deletion Failed',
+            'description' => 'Your attempt to delete the reactor has failed.',
+        ])->resolve();
     }
 }

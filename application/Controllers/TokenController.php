@@ -6,11 +6,11 @@ class TokenController extends BaseController
 {
     public function index()
     {
-        if ($token = $this->oauth->getToken($_REQUEST['client_id'], $_REQUEST['client_secret'])) {
+        if ($token = $this->oauth->authenticate($_REQUEST['client_id'], $_REQUEST['client_secret'])) {
             $this->resource->create([
                 'access_token' => $token,
                 'expires_in' => 99999999999,
-                'token_type' => '',
+                'token_type' => 'Bearer',
                 'scope' => 'TheForce',
             ])->resolve();
         }

@@ -28,23 +28,31 @@ class Framework
         define("CONFIG_PATH", APP_PATH . "config" . DS);
 
         // Load configuration file
+        $GLOBALS['config'] = include CONFIG_PATH . "functions.php";
         $GLOBALS['config'] = include CONFIG_PATH . "routes.php";
 
-        // Define platform, controller, action, for example:
-        if (array_key_exists($_SERVER['REQUEST_URI'], $GLOBALS['config']['routes'])) {
+        foreach ($GLOBALS['config']['routes'] as $route => $routeDetails) {
+            $route = sprintf($route, '([\d]+)');
+            $route = str_replace('/', '\/', $route);
+            $route = "/^{$route}/";
+            preg_match($route, $_REQUEST['url'], $matched);
 
-            var_dump($_REQUEST); die;
+            if (!empty($matched)) {
 
-//            if ($GLOBALS['config']['routes'][$_SERVER['REQUEST_URI']]['request_method'] !== $_SERVER['REQUEST_METHOD']) {
-//                throw new FrameworkException("resource doesn\'t accept {$_SERVER['REQUEST_METHOD']}");
-//            }
+                if ($routeDetails['request_method'] !== $_SERVER['REQUEST_METHOD']) {
+                    throw new FrameworkException("resource doesn\'t accept {$_SERVER['REQUEST_METHOD']}", 500);
+                }
 
-            $controllerName = $GLOBALS['config']['routes'][$_SERVER['REQUEST_URI']]['controller'];
-            $methodName = $GLOBALS['config']['routes'][$_SERVER['REQUEST_URI']]['method'];
+                $controllerName = $routeDetails['controller'];
+                $methodName = $routeDetails['method'];
+                $id = isset($matched[1]) ? (int) $matched[1] : null;
+                break;
+            }
         }
 
         define("CONTROLLER", isset($controllerName) ? $controllerName : 'Home');
         define("METHOD", isset($methodName) ? $methodName : 'index');
+        define("ID", $id);
 
         // Start session
         session_start();
@@ -69,20 +77,20 @@ class Framework
             $builder = new ContainerBuilder();
             $container = $builder->build();
             $controller = $container->get($controllerName);
-            $controller->$methodName();
+            $controller->$methodName(ID);
 
         } catch (\Throwable $throwable) {
-            var_dump($throwable);
-            die();
+            throw new FrameworkException($throwable->getMessage(), $throwable->getCode());
         } catch (\Error $error) {
-            // Dispatch Error Controller
-            var_dump($error);
-            die();
+            throw new FrameworkException($error->getMessage(), $error->getCode());
         }
     }
 }
 
 class FrameworkException extends \Exception
 {
+    public function errorMessage()
+    {
 
+    }
 }
