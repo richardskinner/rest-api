@@ -1,0 +1,4 @@
+mysql/seed/*
+!mysql/seed/.gitkeep
+mysql/data/*
+.idea/*

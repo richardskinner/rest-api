@@ -12,7 +12,8 @@
   "autoload": {
     "psr-4": {
       "Framework\\": "framework/",
-      "Application\\": "application/"
+      "Application\\": "application/",
+      "Tests\\": "tests"
     }
   },
   "minimum-stability": "stable",

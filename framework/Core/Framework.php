@@ -28,7 +28,7 @@ class Framework
         define("CONFIG_PATH", APP_PATH . "config" . DS);
 
         // Load configuration file
-        $GLOBALS['config'] = include CONFIG_PATH . "functions.php";
+        $GLOBALS['functions'] = include CONFIG_PATH . "functions.php";
         $GLOBALS['config'] = include CONFIG_PATH . "routes.php";
 
         foreach ($GLOBALS['config']['routes'] as $route => $routeDetails) {
